@@ -1,12 +1,12 @@
 ﻿using System.Reflection.Metadata;
 
-namespace Domain
+namespace ATMLogic
 {
     public class User
     {
-        private int CardNumber { get; set; }
-        //public Guid UserID { get; set; }
-        private int PIN { get; set; }
+        private string CardNumber { get; set; }
+        private string UserID { get; set; }
+        private string PIN { get; set; }
 
         private string Name { get; set; }
 
@@ -14,20 +14,33 @@ namespace Domain
 
         public bool IsLoggedIn { get; set; }
 
-        public User(int cardNumber, int pin, string name, int amount=0)
+        public User(string cardNumber, string pin, string name, string userId, int amount=0, bool online=false )
         {
             CardNumber = cardNumber;
             PIN = pin;
             Name = name;
             Amount = amount;
+            IsLoggedIn = online;
+            UserID = userId;
         }
 
-        public int GetCardNumber()
+        public User(string cardNumber, string pin, string name, int amount = 0, bool online = false)
+        {
+            CardNumber = cardNumber;
+            PIN = pin;
+            Name = name;
+            Amount = amount;
+            IsLoggedIn = online;
+            UserID = IDGenerator.GenerateID();
+            CardService.GenerateCard( this );
+        }
+
+        public string GetCardNumber()
         {
             return CardNumber;
         }
 
-        public int GetPin()
+        public string GetPin()
         {
             return PIN;
         }
@@ -40,6 +53,11 @@ namespace Domain
         public int GetAmount() 
         {
             return Amount;
+        }
+
+        public string GetUserID()
+        {
+            return UserID;
         }
         
     }
