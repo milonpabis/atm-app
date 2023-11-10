@@ -11,10 +11,10 @@ namespace ATMLogic
     {
         public static void GenerateCard(User user)
         {
-            string[] lines = { user.GetUserID() };
+            string[] lines = { user.UserID };
             try
             {
-                File.WriteAllLines($"F:\\Desktop\\repos\\C#\\ATM\\Domain\\cards\\{user.GetName()}.txt", lines);
+                File.WriteAllLines($"F:\\Desktop\\repos\\C#\\ATM\\Domain\\cards\\{user.Name}.txt", lines);
             }
             catch (Exception ex)
             {

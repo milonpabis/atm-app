@@ -5,8 +5,36 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StartWindow"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             d:DesignHeight="700" d:DesignWidth="500">
+    <Border BorderBrush="Black" BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Label Content="Card Number" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 30 10" FontSize="20"/>
+                    <TextBox Name="tbCardNumber" Height="40" Margin="0 0 10 0" Width="200" VerticalContentAlignment="Center" Padding="10 0 0 0" HorizontalContentAlignment="Left" FontSize="22" FontWeight="Bold"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 37 0" VerticalAlignment="Top">
+                    <Label Content="CVV" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 30 0" FontSize="20"/>
+                    <TextBox Name="tbCVV" Height="40" Margin="0 0 10 0" Width="80" MaxLength="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="Bold"/>
+                </StackPanel>
+                <Button Name="btClear" Click="btClear_Click" Grid.Row="2"  Width="100" Height="50" Content="Clear" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Padding="10" FontWeight="Bold"/>
+                <Button Name="btContinue" Click="btContinue_Click" Grid.Row="2"  Width="100" Height="50" Content="Create" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Padding="10" FontWeight="Bold"/>
+            </Grid>
+            <Button Name="btCancel" Click="btCancel_Click" Grid.Row="2" Width="100" Height="50" HorizontalAlignment="Left" Content="Cancel" HorizontalContentAlignment="Right" Padding="10" FontWeight="Bold"/>
+
+
+        </Grid>
+    </Border>
 </UserControl>

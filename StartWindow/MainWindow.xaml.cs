@@ -29,12 +29,14 @@ namespace StartWindow
         MainInterface mainInterface;
         LoggedPanel loggedPanel;
         AccountCreation accountCreation;
+        CardLessPanel cardLessPanel;
         public MainWindow()
         {
             InitializeComponent();
             mainInterface = new MainInterface();
             loggedPanel = new LoggedPanel();
             accountCreation = new AccountCreation();
+            cardLessPanel = new CardLessPanel();
 
             mainInterface.CreateAccountClicked += MainInterface_CreateAccountClicked;
             mainInterface.CardLessClicked += MainInterface_CardLessClicked;
@@ -48,8 +50,27 @@ namespace StartWindow
             accountCreation.CancelClicked += AccountCreation_CancelClicked;
             accountCreation.CreateClicked += AccountCreation_CreateClicked;
 
+            cardLessPanel.ClearClicked += CardLessPanel_ClearClicked;
+            cardLessPanel.CancelClicked += CardLessPanel_CancelClicked;
+            cardLessPanel.ContinueClicked += CardLessPanel_ContinueClicked;
+
             this.MainContent.Content = mainInterface;
 
+        }
+
+        private void CardLessPanel_ContinueClicked(object sender, EventArgs e)
+        {
+            MessageBox.Show("continue: to be implemented");
+        }
+
+        private void CardLessPanel_CancelClicked(object sender, EventArgs e)
+        {
+            MessageBox.Show("cancel: to be implemented");
+        }
+
+        private void CardLessPanel_ClearClicked(object sender, EventArgs e)
+        {
+            MessageBox.Show("clear: to be implemented");
         }
 
         public void AccountCreation_CreateClicked(object sender, EventArgs e)
@@ -103,7 +124,7 @@ namespace StartWindow
 
         public void MainInterface_CardLessClicked(object source, EventArgs e)
         {
-            MessageBox.Show("to be implementeds");
+            this.MainContent.Content = cardLessPanel;
         }
 
         public void MainInterface_CreateAccountClicked(object source, EventArgs e)
@@ -123,7 +144,7 @@ namespace StartWindow
             if( LoggedUser != null )
             {
                 this.MainContent.Content = loggedPanel;
-                loggedPanel.lbWelcome.Content = string.Format("Hello " + LoggedUser.GetName());
+                loggedPanel.lbWelcome.Content = string.Format("Hello " + LoggedUser.Name);
             }
         }
     }

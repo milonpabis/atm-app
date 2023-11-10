@@ -25,14 +25,15 @@ namespace ATMLogic
         {
             try
             {
-                string query = "INSERT INTO Users VALUES ( @UserID, @Name, @PIN, @Amount, @CardNumber );";
+                string query = "INSERT INTO Users VALUES ( @UserID, @Name, @PIN, @Amount, @CardNumber, @CVV );";
                 SqlCommand sqlCommand = new SqlCommand(query, connection);
                 connection.Open();
-                sqlCommand.Parameters.AddWithValue("@UserID", user.GetUserID());
-                sqlCommand.Parameters.AddWithValue("@Name", user.GetName());
-                sqlCommand.Parameters.AddWithValue("@PIN", user.GetPin());
-                sqlCommand.Parameters.AddWithValue("@Amount", user.GetAmount());
-                sqlCommand.Parameters.AddWithValue("@CardNumber", user.GetCardNumber());
+                sqlCommand.Parameters.AddWithValue("@UserID", user.UserID);
+                sqlCommand.Parameters.AddWithValue("@Name", user.Name);
+                sqlCommand.Parameters.AddWithValue("@PIN", user.PIN);
+                sqlCommand.Parameters.AddWithValue("@Amount", user.Amount);
+                sqlCommand.Parameters.AddWithValue("@CardNumber", user.CardNumber);
+                sqlCommand.Parameters.AddWithValue("@CVV", user.CVV);
                 sqlCommand.ExecuteScalar();
             }
             catch (Exception ex)
@@ -50,11 +51,19 @@ namespace ATMLogic
             try
             {
                 string query = "DELETE FROM Users WHERE UserID = @UserID;";
+                SqlCommand sqlCommand = new SqlCommand( query, connection );
+                connection.Open();
+                sqlCommand.Parameters.AddWithValue("@UserID", user.UserID);
+                sqlCommand.ExecuteScalar();
+                
             }
             catch (Exception ex)
             {
-
-                throw;
+                Debug.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -65,8 +74,8 @@ namespace ATMLogic
                 string query = "UPDATE Users SET Amount=@Amount WHERE UserID = @UserID;";
                 SqlCommand sqlCommand = new SqlCommand( query, connection );
                 connection.Open();
-                sqlCommand.Parameters.AddWithValue("@Amount", user.GetAmount());
-                sqlCommand.Parameters.AddWithValue("@UserID", user.GetUserID());
+                sqlCommand.Parameters.AddWithValue("@Amount", user.Amount);
+                sqlCommand.Parameters.AddWithValue("@UserID", user.UserID);
                 sqlCommand.ExecuteScalar();
                 
             }
@@ -105,9 +114,10 @@ namespace ATMLogic
                 string? Name = dr["Name"].ToString();
                 int Amount = (int)dr["Amount"];
                 string? UserID = dr["UserID"].ToString();
-                if( cardNumber != null && Pin != null && Name != null && UserID != null)
+                string? CVV = dr["CVV"].ToString();
+                if( cardNumber != null && Pin != null && Name != null && UserID != null && CVV != null)
                 {
-                    User user = new User(cardNumber, Pin, Name, UserID, Amount);
+                    User user = new User(cardNumber, Pin, Name, UserID, CVV, Amount);
                     users.Add(user);
                 }
             }

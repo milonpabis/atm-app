@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Identity.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,41 @@ namespace StartWindow
     /// </summary>
     public partial class CardLessPanel : UserControl
     {
+
+        public delegate void ClearClickedEventHandler(object sender, EventArgs e);
+        public delegate void ContinueClickedEventHandler(object sender, EventArgs e);
+        public delegate void CancelClickedEventHandler(object sender, EventArgs e);
+
+        public event ClearClickedEventHandler? ClearClicked;
+        public event ContinueClickedEventHandler? ContinueClicked;
+        public event CancelClickedEventHandler? CancelClicked;
         public CardLessPanel()
         {
             InitializeComponent();
+        }
+
+        private void btClear_Click(object sender, RoutedEventArgs e)
+        {
+            if( ClearClicked != null)
+            {
+                ClearClicked(sender, e);
+            }
+        }
+
+        private void btContinue_Click(object sender, RoutedEventArgs e)
+        {
+            if(  ContinueClicked != null)
+            {
+                ContinueClicked(sender, e);
+            }
+        }
+
+        private void btCancel_Click(object sender, RoutedEventArgs e)
+        {
+            if(  CancelClicked != null)
+            {
+                CancelClicked(sender, e);
+            }
         }
     }
 }

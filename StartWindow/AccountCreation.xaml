@@ -25,7 +25,7 @@
                     <TextBox Name="tbName" Height="40" Margin="0 0 10 0" Width="200" VerticalContentAlignment="Center" Padding="10 0 0 0" HorizontalContentAlignment="Left" FontSize="22" FontWeight="Bold"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 100 0" VerticalAlignment="Top">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 99 0" VerticalAlignment="Top">
                     <Label Content="PIN" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 30 0" FontSize="20"/>
                     <TextBox Name="tbPIN" Height="40" Margin="0 0 10 0" Width="80" MaxLength="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="Bold"/>
                 </StackPanel>

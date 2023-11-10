@@ -11,14 +11,15 @@ namespace ATMTest
 
         public ATM atm = new ATM();
         [Theory]
-        [InlineData("11112222", "6969", "Milon")]
+        [InlineData("11112352", "6969", "Milon")]
         [InlineData("90403333", "1111", "Milosz")]
         [InlineData("21373333", "1234", "Milek")]
         public void Adds_user(string cardNum, string PIN, string userName)
         { 
             var user = new User(cardNumber: cardNum, pin: PIN, name: userName);
             atm.AddUser(user);
-            atm.GetUsers().Should().ContainEquivalentOf(new User(cardNum, PIN, userName, user.GetUserID()));
+            atm.GetUsers().Should().ContainEquivalentOf(new User(cardNum, PIN, userName, user.UserID, user.CVV));
+            atm.DeleteUser(user);
         }
 
         [Fact]
@@ -32,7 +33,7 @@ namespace ATMTest
         [Fact]
         public void Decline_invalid_pin()
         {
-            var user = new User("11112222", "12345", "milon");
+            var user = new User("12112252", "12345", "milon");
             var error = atm.AddUser(user);
             error.Should().BeOfType<TypedDataError>();
         }
@@ -68,10 +69,11 @@ namespace ATMTest
 
         public void Logs_exisiting_user()
         {
-            var user = new User("69691111", "1010", "Fifi");
+            var user = new User("69691211", "1010", "Fifi");
             atm.AddUser(user);
-            var result = atm.LogIn("69691111", "1010");
+            var result = atm.LogIn("69691211", "1010");
             result.Should().Be(true);
+            atm.DeleteUser(user);
         }
 
 
@@ -79,20 +81,22 @@ namespace ATMTest
         [Fact]
         public void Does_not_log_non_existing_user()
         {
-            var user = new User("69691111", "1010", "Fifi");
+            var user = new User("69691131", "1010", "Fifi");
             atm.AddUser(user);
-            var result = atm.LogIn("10101111", "6969");
+            var result = atm.LogIn("10101131", "6969");
             result.Should().Be(false);
+            atm.DeleteUser(user);
         }
 
 
         [Fact]
         public void Does_not_delete_non_existing_user()
         {
-            var user = new User("69691111", "2137", "kitokot");
+            var user = new User("69914311", "2137", "kitokot");
             atm.AddUser(user);
             var error = atm.DeleteUser("11111111", "1111");
             error.Should().BeOfType<UserDoesNotExist>();
+            atm.DeleteUser(user);
         }
 
 
@@ -101,10 +105,11 @@ namespace ATMTest
 
         public void Returns_user_with_number()
         {
-            var user = new User("69691111", "2137", "iwonap", amount: 1000);
+            var user = new User("69701111", "2137", "iwonap", amount: 1000);
             atm.AddUser(user);
-            var retrievedUser = atm.RetrieveUser("69691111", "2137");
-            retrievedUser.GetName().Should().Be("iwonap");
+            var retrievedUser = atm.RetrieveUser("69701111", "2137");
+            retrievedUser.Name.Should().Be("iwonap");
+            atm.DeleteUser(user);
         }
 
         [Fact]
@@ -112,9 +117,10 @@ namespace ATMTest
         {
             var user = new User("77778888", "1111", "milon");
             atm.AddUser(user);
-            var id = user.GetUserID();
+            var id = user.UserID;
             var retrievedUser = atm.RetrieveUser(id);
-            retrievedUser.GetName().Should().Be("milon");
+            retrievedUser.Name.Should().Be("milon");
+            atm.DeleteUser(user);
         }
     }
 }

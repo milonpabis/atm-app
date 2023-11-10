@@ -17,11 +17,11 @@ namespace ATMLogic
 
         public object? AddUser(User user)
         {
-            if (user.GetPin().Length != 4)
+            if (user.PIN.Length != 4)
                 return new TypedDataError();
-            if (user.GetCardNumber().Length != 8)
+            if (user.CardNumber.Length != 8)
                 return new TypedDataError();
-            if (Users.Any(u => u.GetCardNumber().Equals(user.GetCardNumber())))
+            if (Users.Any(u => u.CardNumber.Equals(user.CardNumber)))
                 return new CardNumberExistsError();
             if( user != null )
             {
@@ -33,14 +33,19 @@ namespace ATMLogic
 
         public object? DeleteUser(string number, string pin)
         {
-            if ( !Users.Any(u => u.GetCardNumber().Equals(number) && u.GetPin().Equals(pin) ) ) return new UserDoesNotExist();
-            User user = Users.Single(u => u.GetCardNumber().Equals(number) && u.GetPin().Equals(pin));
+            if ( !Users.Any(u => u.CardNumber.Equals(number) && u.PIN.Equals(pin) ) ) return new UserDoesNotExist();
+            User user = Users.Single(u => u.CardNumber.Equals(number) && u.PIN.Equals(pin));
             if( user != null )
             {
                 dataService.DeleteUser(user);
                 SynchronizeData();
             }
             return null;
+        }
+
+        public object? DeleteUser(User user)
+        {
+            return DeleteUser(user.CardNumber, user.PIN);
         }
 
         public List<User> GetUsers()
@@ -50,17 +55,17 @@ namespace ATMLogic
 
         public bool LogIn(string number, string pin)
         {
-            return Users.Any(u => u.GetCardNumber().Equals(number) && u.GetPin().Equals(pin));
+            return Users.Any(u => u.CardNumber.Equals(number) && u.PIN.Equals(pin));
         }
 
         public User RetrieveUser(string number, string pin)
         {
-            return Users.Single(u => u.GetCardNumber().Equals(number) && u.GetPin().Equals(pin));
+            return Users.Single(u => u.CardNumber.Equals(number) && u.PIN.Equals(pin));
         }
 
         public User RetrieveUser(string userID)
         {
-            return Users.Single(u => u.GetUserID().Equals(userID));
+            return Users.Single(u => u.UserID.Equals(userID));
         }
 
         public void SynchronizeData()

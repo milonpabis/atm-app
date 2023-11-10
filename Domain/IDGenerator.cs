@@ -22,5 +22,18 @@ namespace ATMLogic
             }
             return generatedID;
         }
+
+        public static string GenerateCVV()
+        {
+            var random = new Random();
+            string chars = "123456789";
+            string generatedCVV = "";
+
+            for(int i = 0; i < 3; i++)
+            {
+                generatedCVV += chars[random.Next(chars.Length)];
+            }
+            return generatedCVV;
+        }
     }
 }

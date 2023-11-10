@@ -4,17 +4,19 @@ namespace ATMLogic
 {
     public class User
     {
-        private string CardNumber { get; set; }
-        private string UserID { get; set; }
-        private string PIN { get; set; }
+        public string CardNumber { get;}
+        public string UserID { get; }
+        public string PIN { get; }
 
-        private string Name { get; set; }
+        public string CVV { get; }
 
-        private int Amount { get; set; }
+        public string Name { get; }
+
+        public int Amount { get; set; }
 
         public bool IsLoggedIn { get; set; }
 
-        public User(string cardNumber, string pin, string name, string userId, int amount=0, bool online=false )
+        public User(string cardNumber, string pin, string name, string userId, string cvv, int amount=0, bool online=false )
         {
             CardNumber = cardNumber;
             PIN = pin;
@@ -22,6 +24,7 @@ namespace ATMLogic
             Amount = amount;
             IsLoggedIn = online;
             UserID = userId;
+            CVV = cvv;
         }
 
         public User(string cardNumber, string pin, string name, int amount = 0, bool online = false)
@@ -31,35 +34,10 @@ namespace ATMLogic
             Name = name;
             Amount = amount;
             IsLoggedIn = online;
+            CVV = IDGenerator.GenerateCVV();
             UserID = IDGenerator.GenerateID();
             CardService.GenerateCard( this );
         }
-
-        public string GetCardNumber()
-        {
-            return CardNumber;
-        }
-
-        public string GetPin()
-        {
-            return PIN;
-        }
-
-        public string GetName()
-        {
-            return Name;
-        }
-
-        public int GetAmount() 
-        {
-            return Amount;
-        }
-
-        public string GetUserID()
-        {
-            return UserID;
-        }
-        
     }
 
     
