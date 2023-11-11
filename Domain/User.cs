@@ -27,15 +27,15 @@ namespace ATMLogic
             CVV = cvv;
         }
 
-        public User(string cardNumber, string pin, string name, int amount = 0, bool online = false)
+        public User(string pin, string name, int amount = 0, bool online = false)
         {
-            CardNumber = cardNumber;
             PIN = pin;
             Name = name;
             Amount = amount;
             IsLoggedIn = online;
             CVV = IDGenerator.GenerateCVV();
             UserID = IDGenerator.GenerateID();
+            CardNumber = IDGenerator.GenerateCardNumber();
             CardService.GenerateCard( this );
         }
     }

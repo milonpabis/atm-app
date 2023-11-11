@@ -22,12 +22,12 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Label Content="Name" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 30 10" FontSize="20"/>
-                    <TextBox Name="tbName" Height="40" Margin="0 0 10 0" Width="200" VerticalContentAlignment="Center" Padding="10 0 0 0" HorizontalContentAlignment="Left" FontSize="22" FontWeight="Bold"/>
+                    <TextBox Name="tbName" PreviewTextInput="tbName_PreviewTextInput" Height="40" Margin="0 0 10 0" Width="200" VerticalContentAlignment="Center" Padding="10 0 0 0" HorizontalContentAlignment="Left" FontSize="22" FontWeight="Bold"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 99 0" VerticalAlignment="Top">
                     <Label Content="PIN" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 30 0" FontSize="20"/>
-                    <TextBox Name="tbPIN" Height="40" Margin="0 0 10 0" Width="80" MaxLength="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="Bold"/>
+                    <TextBox Name="tbPIN" PreviewTextInput="tbPIN_PreviewTextInput"  Height="40" Margin="0 0 10 0" Width="80" MaxLength="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="Bold"/>
                 </StackPanel>
                 <Button Name="btClear" Click="btClear_Click" Grid.Row="2"  Width="100" Height="50" Content="Clear" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Padding="10" FontWeight="Bold"/>
                 <Button Name="btCreate" Click="btCreate_Click" Grid.Row="2"  Width="100" Height="50" Content="Create" HorizontalAlignment="Right" HorizontalContentAlignment="Left" Padding="10" FontWeight="Bold"/>

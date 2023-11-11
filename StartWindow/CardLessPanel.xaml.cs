@@ -57,5 +57,11 @@ namespace StartWindow
                 CancelClicked(sender, e);
             }
         }
+
+        private void NumericPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if(!int.TryParse(e.Text, out _))
+                e.Handled = true;
+        }
     }
 }

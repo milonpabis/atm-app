@@ -35,5 +35,18 @@ namespace ATMLogic
             }
             return generatedCVV;
         }
+
+        public static string GenerateCardNumber()
+        {
+            var random = new Random();
+            string chars = "0123456789";
+            string generatedCardNumber = "";
+
+            for(int i = 0; i < 8; i++ )
+            {
+                generatedCardNumber += chars[random.Next(chars.Length)];
+            }
+            return generatedCardNumber;
+        }
     }
 }

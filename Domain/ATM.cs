@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,8 @@ namespace ATMLogic
     {
         private List<User> Users { get; set; } = new List<User>();
         private DataService dataService = new DataService();
+        public int Limit { get; set; }
+        public bool ToDeposit { get; set; }
         public ATM()
         {
             SynchronizeData();
@@ -17,9 +20,7 @@ namespace ATMLogic
 
         public object? AddUser(User user)
         {
-            if (user.PIN.Length != 4)
-                return new TypedDataError();
-            if (user.CardNumber.Length != 8)
+            if (user.PIN.Length != 4 || user.PIN.Contains(" "))
                 return new TypedDataError();
             if (Users.Any(u => u.CardNumber.Equals(user.CardNumber)))
                 return new CardNumberExistsError();
@@ -53,14 +54,14 @@ namespace ATMLogic
             return Users;
         }
 
-        public bool LogIn(string number, string pin)
+        public bool CanLogIn(string number, string cvv)
         {
-            return Users.Any(u => u.CardNumber.Equals(number) && u.PIN.Equals(pin));
+            return Users.Any(u => u.CardNumber.Equals(number) && u.CVV.Equals(cvv));
         }
 
-        public User RetrieveUser(string number, string pin)
+        public User RetrieveUser(string number, string cvv)
         {
-            return Users.Single(u => u.CardNumber.Equals(number) && u.PIN.Equals(pin));
+            return Users.Single(u => u.CardNumber.Equals(number) && u.CVV.Equals(cvv));
         }
 
         public User RetrieveUser(string userID)
@@ -71,6 +72,29 @@ namespace ATMLogic
         public void SynchronizeData()
         {
             Users = dataService.RetrieveUsers();
+        }
+
+        public object? ChangeAmount(User user, int amount)
+        {
+            int userAmount = user.Amount;
+            if (ToDeposit && amount <= Limit)
+            {
+                userAmount += amount;
+            }
+            else if(!ToDeposit && amount <= Limit && userAmount >= amount)
+            {
+                userAmount -= amount;
+            }
+            else
+            {
+                if (amount > Limit) return new LimitExceededError();
+                else return new UnsufficientAmountError();
+            }
+            
+            
+            dataService.UpdateInfo(user, userAmount);
+            SynchronizeData();
+            return null;
         }
 
     }

@@ -67,14 +67,14 @@ namespace ATMLogic
             }
         }
 
-        public void UpdateInfo(User user)
+        public void UpdateInfo(User user, int amount)
         {
             try
             {
                 string query = "UPDATE Users SET Amount=@Amount WHERE UserID = @UserID;";
                 SqlCommand sqlCommand = new SqlCommand( query, connection );
                 connection.Open();
-                sqlCommand.Parameters.AddWithValue("@Amount", user.Amount);
+                sqlCommand.Parameters.AddWithValue("@Amount", amount);
                 sqlCommand.Parameters.AddWithValue("@UserID", user.UserID);
                 sqlCommand.ExecuteScalar();
                 

@@ -51,5 +51,19 @@ namespace StartWindow
             if ( CancelClicked != null ) 
                 CancelClicked(sender, e);
         }
+
+        private void tbPIN_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!int.TryParse(e.Text, out _))
+                e.Handled = true;
+        }
+
+        private void tbName_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            if (!chars.Contains(e.Text))
+                e.Handled = true;
+        }
     }
+
 }
