@@ -9,8 +9,6 @@ using System.Diagnostics;
 
 namespace ATMLogic
 {
-
-
     public class DataService
     {
         SqlConnection connection;
@@ -123,6 +121,5 @@ namespace ATMLogic
             }
             return users;
         }
-
     }
 }

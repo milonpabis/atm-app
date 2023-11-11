@@ -91,8 +91,6 @@ namespace ATMTest
             atm.DeleteUser(user);
         }
 
-
-
         [Fact]
 
         public void Returns_user_with_number()

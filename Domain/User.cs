@@ -7,7 +7,6 @@ namespace ATMLogic
         public string CardNumber { get;}
         public string UserID { get; }
         public string PIN { get; }
-
         public string CVV { get; }
 
         public string Name { get; }
@@ -39,6 +38,4 @@ namespace ATMLogic
             CardService.GenerateCard( this );
         }
     }
-
-    
 }

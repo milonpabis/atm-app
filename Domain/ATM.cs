@@ -91,7 +91,6 @@ namespace ATMLogic
                 else return new UnsufficientAmountError();
             }
             
-            
             dataService.UpdateInfo(user, userAmount);
             SynchronizeData();
             return null;

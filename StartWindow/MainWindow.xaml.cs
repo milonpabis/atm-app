@@ -39,6 +39,7 @@ namespace StartWindow
         AccountCreation accountCreation;
         CardLessPanel cardLessPanel;
         TransactionPanel transactionPanel;
+        SummaryPanel summaryPanel;
         public MainWindow()
         {
             InitializeComponent();
@@ -47,6 +48,7 @@ namespace StartWindow
             accountCreation = new AccountCreation();
             cardLessPanel = new CardLessPanel();
             transactionPanel = new TransactionPanel();
+            summaryPanel = new SummaryPanel();
 
             mainInterface.CreateAccountClicked += MainInterface_CreateAccountClicked;
             mainInterface.CardLessClicked += MainInterface_CardLessClicked;
@@ -68,7 +70,21 @@ namespace StartWindow
             transactionPanel.CancelClicked += TransactionPanel_CancelClicked;
             transactionPanel.ProceedClicked += TransactionPanel_ProceedClicked;
 
+            summaryPanel.OnTick += SummaryPanel_OnTick;
+
             this.MainContent.Content = mainInterface;
+
+        }
+
+        private void SummaryPanel_OnTick(object sender, int count, EventArgs e)
+        {
+            if (count >= 0)
+                summaryPanel.lbTimer.Content = $"Exiting in {count}s...";
+            else
+            {
+                this.MainContent.Content = mainInterface;
+                summaryPanel.lbTimer.Content = "Exiting in 3s...";
+            }
 
         }
 
@@ -98,6 +114,15 @@ namespace StartWindow
                                 MessageBox.Show("Limit Exceeded!");
                             }
                         }
+
+                        // when success
+                        else
+                        {
+                            LoggedUser = null;
+                            ClearTransaction();
+                            this.MainContent.Content = summaryPanel;
+
+                        }
                         
                     }
 
@@ -112,7 +137,7 @@ namespace StartWindow
                 // when PIN is wrong
                 else
                 {
-
+                    MessageBox.Show("Wrong PIN");
                 }
             }
             
@@ -237,7 +262,7 @@ namespace StartWindow
             if (user != null)
             {
                 LoggedUser = user;
-                atm.Limit = 99999;
+                atm.Limit = 20000;
                 HandleLoginSite();
             }
             else
@@ -253,12 +278,6 @@ namespace StartWindow
         {
             this.MainContent.Content = accountCreation;
         }
-
-
-
-
-
-
 
 
         private void HandleLoginSite()

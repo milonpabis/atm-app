@@ -21,7 +21,6 @@ namespace ATMLogic
 
                 //
             }
-            
         }
 
         public static User? RetrieveUser(ATM atm, string filePath)
