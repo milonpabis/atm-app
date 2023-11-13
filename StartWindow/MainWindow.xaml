@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StartWindow"
         mc:Ignorable="d"
-        Title="ATM" Height="700" Width="500" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="ATM" Height="700" Width="500" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/images/icon_atm.png">
     <ContentControl Name="MainContent">
     </ContentControl>
     

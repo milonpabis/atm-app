@@ -8,13 +8,19 @@
              d:DesignHeight="700" d:DesignWidth="500" Loaded="UserControl_Loaded">
     <Border BorderBrush="Black" BorderThickness="2">
         <Grid>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF11C5D2"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="30" Content="Thank you for using our service!"/>
-            <Label Name="lbTimer" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="20" Content="Exiting in 3s..." />
+            <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24" Content="Thank you for using our service!" FontFamily="Miriam Mono CLM"/>
+            <Label Name="lbTimer" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="20" Content="Exiting in 3s..." FontFamily="Miriam Mono CLM" />
         </Grid>
     </Border>
 

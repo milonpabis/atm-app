@@ -167,6 +167,10 @@ namespace StartWindow
                 ClearCardLess();
                 HandleLoginSite();
             }
+            else
+            {
+                MessageBox.Show("Wrong input!");
+            }
         }
 
         private void CardLessPanel_CancelClicked(object sender, EventArgs e)

@@ -8,6 +8,12 @@
              d:DesignHeight="700" d:DesignWidth="500">
     <Border BorderBrush="Black" BorderThickness="2">
         <Grid>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF11C5D2"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="4*"/>
@@ -15,17 +21,17 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="ATM" FontSize="72" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+            <Label Grid.Row="0" Content="ATM" FontSize="72" FontWeight="Bold" HorizontalContentAlignment="Center" FontFamily="Bauhaus 93"/>
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0 2 0 2">
-                <TextBlock Text="Hello, please insert your card" FontWeight="DemiBold" FontSize="40" TextWrapping="Wrap" TextAlignment="Center" Padding="0 50 0 0" />
+                <TextBlock Text="Hello, please insert your card" FontWeight="DemiBold" FontSize="40" Margin="10" TextWrapping="Wrap" TextAlignment="Center" Padding="0 50 0 0" FontFamily="Miriam Mono CLM" />
             </Border>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Name="btCreateAccount" Click="btCreateAccount_Click" Grid.Column="0" Content="Create Account" Width="100" Height="50" HorizontalContentAlignment="Right" HorizontalAlignment="Left" FontWeight="Bold"/>
-                <Button Name="btCardLess" Click="btCardLess_Click" Grid.Column="1" Content="Cardless service" Width="100" Height="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" FontWeight="Bold"/>
+                <Button Name="btCreateAccount" Click="btCreateAccount_Click" Grid.Column="0" Content="Create Account" Width="118" Height="50" Padding="0 0 10 0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" FontWeight="Bold" FontFamily="Miriam Mono CLM" Background="#FFBAE7EE" BorderThickness="0,2,2,2" BorderBrush="#FF18A6B7"/>
+                <Button Name="btCardLess" Click="btCardLess_Click" Grid.Column="1" Content="Cardless service" Width="130" Height="50" Padding="10 0 0 0" HorizontalContentAlignment="Left" HorizontalAlignment="Right" FontWeight="Bold" FontFamily="Miriam Mono CLM" Background="#FFBAE7EE" BorderBrush="#FF18A6B7" BorderThickness="2,2,0,2"/>
             </Grid>
 
             <Image Grid.Row="3" Width="100" Height="50" VerticalAlignment="Bottom" Margin="0 0 0 10">
