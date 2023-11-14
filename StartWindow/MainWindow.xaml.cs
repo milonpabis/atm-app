@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using System.Xml.XPath;
 using ATMLogic;
 
@@ -30,6 +31,8 @@ namespace StartWindow
     //   c) withdraw/deposit in logged
     //   d) proceed transaction
     // - add final UserControl
+
+    
     public partial class MainWindow : Window
     {
         ATM atm = new ATM();
@@ -40,6 +43,8 @@ namespace StartWindow
         CardLessPanel cardLessPanel;
         TransactionPanel transactionPanel;
         SummaryPanel summaryPanel;
+
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -105,13 +110,13 @@ namespace StartWindow
                             // when user has no money for transaction
                             if (result.GetType().Equals(typeof(UnsufficientAmountError)))
                             {
-                                MessageBox.Show("NO MONEY!!!");
+                                ErrorTransaction("Insufficient funds!");
                             }
 
                             // when user exceeded limit ( cardless )
                             if (result.GetType().Equals(typeof(LimitExceededError)))
                             {
-                                MessageBox.Show("Limit Exceeded!");
+                                ErrorTransaction("Limit exceeded!");
                             }
                         }
 
@@ -129,7 +134,7 @@ namespace StartWindow
                     // when input is wrong
                     else
                     {
-                        MessageBox.Show("INCORRECT INPUT!!!");
+                        ErrorTransaction("Incorrect input!");
                     }
                     
                 }
@@ -137,7 +142,7 @@ namespace StartWindow
                 // when PIN is wrong
                 else
                 {
-                    MessageBox.Show("Wrong PIN");
+                    ErrorTransaction("Wrong PIN!");
                 }
             }
             
@@ -169,7 +174,7 @@ namespace StartWindow
             }
             else
             {
-                MessageBox.Show("Wrong input!");
+                ErrorCardLess("Wrong input!");
             }
         }
 
@@ -187,7 +192,6 @@ namespace StartWindow
 
         public void AccountCreation_CreateClicked(object sender, EventArgs e)
         {
-            //MessageBox.Show("create: to be implemented");
             User user = new User(accountCreation.tbPIN.Text.Trim(), accountCreation.tbName.Text.Trim());
             try
             {
@@ -195,18 +199,9 @@ namespace StartWindow
                 if(result != null)
                 {
                     if(result.GetType() == typeof(TypedDataError))
-                    {
-                        MessageBox.Show("Incorrect Data Input");
-                    }
-
+                        ErrorAccountCreation("Wrong input!");
                     else
-                    {
-                        MessageBox.Show("UNLUCKY!!!");
-                    }
-
-                    // happens after error while creating
-                    ClearAccountCreation();
-
+                        ErrorAccountCreation("System error! Please try again.");
                     return;
                 }
                 
@@ -218,7 +213,7 @@ namespace StartWindow
                 return;
             }
 
-            // happens after creating an account
+            // happens after successful creation
 
             ClearAccountCreation();
             MessageBox.Show(string.Format($"Your card is stored in cards folder\nYour PIN: {user.PIN}\nYour card number: {user.CardNumber}\nYour CVV: {user.CVV}"));
@@ -242,12 +237,14 @@ namespace StartWindow
         public void LoggedPanel_WithdrawClicked(object sender, EventArgs e)
         {
             atm.ToDeposit = false;
+            this.transactionPanel.lbTitle.Content = "WITHDRAW";
             this.MainContent.Content = transactionPanel;
         }
 
         public void LoggedPanel_DepositClicked(object sender, EventArgs e)
         {
             atm.ToDeposit = true;
+            this.transactionPanel.lbTitle.Content = "DEPOSIT";
             this.MainContent.Content = transactionPanel;
         }
 
@@ -263,14 +260,16 @@ namespace StartWindow
             string filePath = files[0];
 
             var user = CardService.RetrieveUser(atm, filePath);
+            // successful login with card
             if (user != null)
             {
+                LedControlMainInterface(Colors.Green, true);
                 LoggedUser = user;
                 atm.Limit = 20000;
-                HandleLoginSite();
             }
+            // unsuccessful login with card
             else
-                MessageBox.Show("Incorrect input");
+                LedControlMainInterface(Colors.Red, false);
         }
 
         public void MainInterface_CardLessClicked(object source, EventArgs e)
@@ -310,6 +309,61 @@ namespace StartWindow
         {
             transactionPanel.tbAmount.Text = String.Empty;
             transactionPanel.tbPIN.Text = String.Empty;
+        }
+
+        private void LedControlMainInterface(Color color, bool success)
+        {
+            this.mainInterface.ledControl.Fill = new SolidColorBrush(color);
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Tick += (sender, e) =>
+            {
+                this.mainInterface.ledControl.Fill = null;
+                timer.Stop();
+                if (success)
+                    HandleLoginSite();
+            };
+            timer.Start();
+        }
+
+        private void ErrorAccountCreation(string message)
+        {
+            this.accountCreation.lbError.Content = message;
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += (sender, e) =>
+            {
+                accountCreation.lbError.Content = String.Empty;
+                timer.Stop();
+            };
+            timer.Start();
+        }
+
+        private void ErrorCardLess(string message)
+        {
+            this.cardLessPanel.lbError.Content = message;
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += (sender, e) =>
+            {
+                cardLessPanel.lbError.Content = String.Empty;
+                timer.Stop();
+            };
+            timer.Start();
+        }
+
+        private void ErrorTransaction(string message)
+        {
+            this.transactionPanel.lbError.Content = message;
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += (sender, e) =>
+            {
+                transactionPanel.lbError.Content = String.Empty;
+                timer.Stop();
+            };
+            timer.Start();
+
         }
     }
 }

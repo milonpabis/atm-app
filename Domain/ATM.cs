@@ -28,6 +28,7 @@ namespace ATMLogic
             {
                 dataService.AddUser(user);
                 SynchronizeData();
+                CardService.GenerateCard(user);
             }
             return null;
         }

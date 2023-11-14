@@ -35,7 +35,6 @@ namespace ATMLogic
             CVV = IDGenerator.GenerateCVV();
             UserID = IDGenerator.GenerateID();
             CardNumber = IDGenerator.GenerateCardNumber();
-            CardService.GenerateCard( this );
         }
     }
 }

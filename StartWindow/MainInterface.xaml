@@ -39,11 +39,20 @@
                     <BitmapImage UriSource="/images/arrow_down.png" />
                 </Image.Source>
             </Image>
-            <Image Name="imgCardInsertion" Drop="imgCardInsertion_Drop" Grid.Row="4" Height="45" VerticalAlignment="Bottom" Margin="0 0 0 10" AllowDrop="True">
-                <Image.Source>
-                    <BitmapImage UriSource="/images/insert_image.png" />
-                </Image.Source>
-            </Image>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="1" Name="imgCardInsertion" Drop="imgCardInsertion_Drop" Grid.Row="4" Height="45" VerticalAlignment="Bottom" Margin="0 0 0 10" AllowDrop="True">
+                    <Image.Source>
+                        <BitmapImage UriSource="/images/insert_image.png" />
+                    </Image.Source>
+                </Image>
+                <Ellipse Name="ledControl" Grid.Column="2" Width="10" Height="10" HorizontalAlignment="Left" StrokeThickness="2" Stroke="Black"/>
+            </Grid>
+            
 
         </Grid>
     </Border>
