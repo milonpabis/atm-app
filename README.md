@@ -11,23 +11,28 @@ Data is being stored in simple local database.
 ## Preview
 
 ### Main Page
+![atm1](https://github.com/milonpabis/atm-app/assets/116438884/65bfeacd-2f22-4c65-bf66-2323810bd704)
 
-![atm1](https://github.com/milonpabis/atm-app/assets/116438884/e155ae6b-aeed-4c55-89bc-f40e6a2ebc18)
+
 ### Account Creating 
+![atm2](https://github.com/milonpabis/atm-app/assets/116438884/427016df-bde5-4694-8472-772352b11cb7)
 
-![atm2](https://github.com/milonpabis/atm-app/assets/116438884/b042445c-36e5-490f-a435-584eb3b6b69a)
+
 ### Cardless Login Page
+![atm3](https://github.com/milonpabis/atm-app/assets/116438884/89b437ac-e75b-414b-9d0b-369e6fb8de9b)
 
-![atm3](https://github.com/milonpabis/atm-app/assets/116438884/c6cefc30-8051-4514-9a02-45750c52f98e)
 ### Logged Page
+![atm4](https://github.com/milonpabis/atm-app/assets/116438884/d0205c43-82e7-4445-9fc4-b3d653ee282a)
 
-![atm4](https://github.com/milonpabis/atm-app/assets/116438884/7e818e6e-5b93-4f5a-bb8d-50c7b446e756)
+
 ### Transaction Page
+![atm5](https://github.com/milonpabis/atm-app/assets/116438884/09f1b264-ec97-4f11-b7db-0c5397da413d)
 
-![atm5](https://github.com/milonpabis/atm-app/assets/116438884/04a78db8-4c07-4ef1-8e9c-de70745af03a)
+
 ### Summary Page
+![atm6](https://github.com/milonpabis/atm-app/assets/116438884/5230ba7a-8e80-4635-9411-6d7c0b922658)
 
-![atm6](https://github.com/milonpabis/atm-app/assets/116438884/472433c4-1b82-4255-a93e-e97d6e9307da)
+
 
 
 
